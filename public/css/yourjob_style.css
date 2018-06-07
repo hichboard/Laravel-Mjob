@@ -1,0 +1,734 @@
+
+
+
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
+@import url(https://fonts.googleapis.com/css?family=Dosis|Nanum+Gothic|Open+Sans+Condensed:300);
+
+body{
+    /*font-family: 'Open Sans Condensed', sans-serif;*/
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+
+
+
+/*---------------------Header---------------------*/
+
+aside{
+    min-height: 700px;
+}
+.header{
+    background-image: url("/projet_recrute/public/img/3.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 380px;
+    height: 380px;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+.header-admin{
+    background-image: url("/projet_recrute/public/img/admin4.jpg") ;
+    background-size: 1400px 380px;
+    height: 380px;
+    width: 100.5%;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+.header-cand{
+    background-image: url("/projet_recrute/public/img/cnd3.jpg") ;
+    background-size: 1400px 380px;
+    height: 380px;
+    width: 100.5%;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+.header-empl{
+    background-image: url("/projet_recrute/public/img/empl3.jpg") ;
+    background-size: 1400px 380px;
+    height: 380px;
+    width: 100.5%;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+.header-logo a{
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    font-size: 50px;
+    color: white;
+    text-decoration: none;
+    text-shadow:0 0 5px rgba(255, 255, 255, 0.8);
+
+}
+.header-logo a span{
+    color: #db6a56;
+    font-weight: bolder;
+    font-size: 60px;
+}
+/*---------------------Header-top------------------*/
+
+.header-top{
+    position: absolute;
+    background-color: rgba(19, 42, 62, 0.7);
+    width: 100%;
+    height: 25px;
+    margin: 0;
+    padding: 0 ;
+    border: 1px solid #1f3761;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.6);
+
+}
+.header-top span{
+    position: relative;
+    padding: 0 10px 0 10px;
+    font-size: 14px;
+    font-weight: bold;
+    right: 50px;
+    float: right;
+    color: #b9604d;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.header-top span a{
+    color: white;
+    transition: 0.5s;
+}
+.header-top span a:hover{
+    color: #267aff;
+
+}
+.lga:hover .menu-langue{
+    display: block;
+}
+.menu-langue{
+    position: absolute;
+    display: none;
+    right: 480px;
+    top:20px;
+    z-index: 1;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.6);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 3px;
+    transition: 0.7s;
+}
+.menu-langue a{
+    display:block;
+    text-decoration: none;
+    padding: 3px 5px 3px 5px;
+    color: #2f3946;
+
+}
+.menu-langue a:hover{
+    background-color: rgba(219, 106, 86, 0.8);
+    color: white;
+    transition: 0.7s;
+}
+
+
+.nav{
+    position: absolute;
+    text-transform: uppercase;
+    top: 320px;
+    width: 100%;
+    height: 60px;
+    float: right;
+    display: inline-block;
+    padding: 0;
+    background-color: rgba(19, 42, 62, 0.7);
+    border: 1px solid #1f3761;
+
+
+}
+.nav ul li a{
+    text-decoration: none;
+    color: #db6a56;
+    font-size: 20px;
+    padding: 20px 10px 18px 10px;
+    text-transform: uppercase;
+    transition: ease-in-out 0.2s;
+    font-weight: lighter;
+    box-shadow:0 0 10px rgba(0, 0, 0, 0.4);
+}
+.nav ul li {
+    display: inline-block;
+    margin: 15px -5px 0 0;
+}
+.nav-active,.nav ul li a:hover {
+    border-top: 1px solid #db6a56;
+    border-bottom: 1px solid #db6a56;
+    background-color: rgba(35, 35, 35, 0.5);
+    /*  font-size: 23px!important;*/
+    color: #ffffff!important;
+    text-shadow:0 0 5px rgba(255, 255, 255, 0.5);
+    box-shadow:0 5px 20px rgba(0, 0, 0, 0.8);
+}
+
+
+.acc-handle{
+    color: white;
+    font-size: 25px;
+    margin: 0;
+}
+
+.select-style{
+    display: inline-block;
+}
+.acc-panel{
+    margin: 170px 0 0 20px ;
+    padding: 0 0 10px 0;
+    width: 1180px;
+    text-align: center;
+    background-color: rgba(19, 42, 62, 0.7);
+    border-radius: 3px;
+    border: 1px solid #1f3761;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.66);
+    position: relative;
+
+}
+#ville,#Categories ,.keywords{
+    width: 300px;
+    margin: 0 5px 0 0;
+}
+
+.alt-search-btn,.keywords,#ville,#Categories{
+    height: 40px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius:3px;
+    border: 1px solid transparent;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.66);
+
+}
+
+.alt-search-btn{
+    background-color: #ff7761;
+    color: white;
+    font-size: 20px;
+    width: 150px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.66);
+    transition: 0.6s;
+    cursor: pointer;
+
+}
+.alt-search-btn:hover{
+    background-color: transparent;
+    color: #ff7761;
+    border: 1px solid #ff7761;
+}
+.bar-search{
+    margin: 60px 0 0 60px;
+}
+/*-----------------------Content------------------------*/
+h1{
+    font-size: 40px;
+}
+.content{
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 400px 0 50px 0 ;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+.login-candidat,.register-candidat,.register-employeur{
+    border-radius: 3px;
+    border: 1px solid #31a5ff;
+    box-shadow: 0 8px 10px 0 rgba(17, 8, 6, 0.3);
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    padding: 0 10px 10px 10px;
+    min-height: 400px;
+}
+.login-candidat table,.register-candidat table,.register-employeur table{
+    text-align: left;
+    font-size: 17px;
+    margin: auto;
+}
+/*-----------------------content-forms--------------------*/
+.label-jb{
+    color: #276e8f;
+    font-size: 13px;
+}
+
+
+.input-jb{
+    border: 1px solid #62b2ff;
+    height: 30px;
+    width: 260px;
+    padding-left: 5px;
+    font-size: 15px;
+    margin: 0;
+    color: #484848;
+    transition: ease-out 0.4s;
+    box-shadow:0 0 10px rgba(0, 0, 0, 0.4);
+    /* background-color: transparent;*/
+}
+.input-select{
+    height: 35px;
+    width: 268px;
+
+}
+.input-jb:focus{
+    box-shadow: 0 2px 20px 2px rgba(13, 151, 255, 0.4);
+    background-color: rgba(92, 162, 255, 0.3);
+}
+
+
+.link-btn{
+    text-decoration: none!important;
+    font-size: 15px;
+    padding: 1px 5px;
+    font-weight: lighter;
+}
+.btn-sml{
+    width: 10px;
+    height: 10px;
+    font-size: 10px;
+    margin-right: 0 ;
+}
+.btn-jb{
+    border: 1px solid #418c43;
+    margin-top: 10px;
+    color: #fffffffa;
+    font-size: 15px;
+    padding: 1px 5px;
+    transition: 0.5s;
+    cursor: pointer;
+    background-color: #0fcc28a6;
+}
+.btn-jb:hover{
+    background-color: transparent;
+    box-shadow: 0 2px 20px 2px rgba(65, 140, 67, 0.5);
+    color: #07a514ce;
+    text-shadow:0 0 5px rgba(255, 255, 255, 0.6);
+
+}
+.btn-blue-jb{
+    border: 1px solid #09468c;
+    margin-top: 10px;
+    color: white;
+    font-size: 15px;
+    padding: 1px 5px;
+    transition: 0.5s;
+    cursor: pointer;
+    background-color: #267aff;
+}
+.btn-blue-jb:hover{
+    background-color: transparent;
+    box-shadow: 0 2px 20px 2px rgba(13, 151, 255, 0.4);
+    color: #09468c;
+    text-shadow:0 0 5px rgba(255, 255, 255, 0.6);
+}
+.btn-blue-jb-rev{
+    border: 1px solid #09468c;
+    color: white;
+    text-shadow:0 0 5px rgba(255, 255, 255, 0.6);
+    margin-top: 10px;
+    width: 160px;
+    height:35px;
+    font-size: 18px;
+    transition: 0.6s;
+    cursor: pointer;
+    background-color: #3981be;
+
+
+
+}
+.btn-blue-jb-rev:hover{
+    color: #09468c;
+    background-color: transparent;
+    box-shadow: 0 2px 20px 2px rgba(13, 151, 255, 0.4);
+}
+.btn-red-jb-rev{
+    border: 1px solid #b6563f;
+    margin-top: 10px;
+    width: 160px;
+    height:35px;
+    color: white;
+    font-size: 18px;
+    transition: 0.5s;
+    cursor: pointer;
+    background-color: #d76349;
+    text-shadow:0 0 5px rgba(255, 255, 255, 0.6);
+}
+.btn-red-jb-rev:hover{
+    color: #d76349;
+    background-color: transparent;
+    box-shadow: 0 2px 20px 2px rgba(215, 99, 73, 0.5);
+}.btn-red-jb{
+     border: 1px solid #d76349;
+     margin-top: 10px;
+     color: white;
+     font-size: 15px;
+     padding: 1px 5px;
+     transition: 0.5s;
+     cursor: pointer;
+     background-color: #d76349;
+
+ }
+.btn-red-jb:hover{
+    background-color: transparent;
+    box-shadow: 0 2px 20px 2px rgba(215, 99, 73, 0.5);
+    color: #d76349;
+    text-shadow:0 0 5px rgba(255, 255, 255, 0.6);
+}
+.content-panel{
+    font-size: 13px;
+    font-weight: lighter;
+}
+.content-panel a{
+    text-decoration: none;
+    display: block;
+    transition: 0.5s;
+    color: #008ad2;
+}
+.content-panel a:hover{
+    color: #d76349;
+    padding-left: 10px;
+}
+/*-------------------------Profile condidat--------------------------*/
+
+.menu-profile{
+    position: sticky;
+    top: 5px;
+    z-index: 1;
+}
+.menu-profile a{
+
+    display: inline-block;
+    text-align: center;
+    margin-top: 5px;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #d76349;
+    background-color: rgba(19, 42, 62, 0.8);
+    box-shadow: 0 8px 10px 0 rgba(17, 8, 6, 0.3);
+    transition: 0.2s;
+    cursor: pointer;
+}
+.menu-profile a:hover{
+    background-color:#d76349 ;
+    box-shadow: 0 0 6px rgba(215, 99, 73, 0.7);
+    text-shadow:0 0 5px rgba(255, 255, 255, 0.6);
+    color: white;
+    margin: 0 8px 0 8px;
+}
+.activate{
+    background-color:#d76349 !important;
+    box-shadow: 0 0 6px rgba(215, 99, 73, 0.7)!important;
+    text-shadow:0 0 5px rgba(255, 255, 255, 0.6)!important;
+    color: #f4f4f4!important;
+    margin: 0 10px 0 10px!important;
+}
+
+.header-profile table{
+    width: 90%;
+    text-align: left;
+    margin-left: 30px;
+}
+.image-profile{
+    /*background-image: url("/projet_recrute/public/img/default_ph.jpg");*/
+    background-size: cover;
+    width: 150px;
+    height: 150px!important;
+    box-shadow: 0 8px 10px 0 rgba(17, 8, 6, 0.5);
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+.img_prof{
+    background-size: cover;
+    box-shadow: 0 8px 10px 0 rgba(17, 8, 6, 0.5);
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+
+hr{
+    margin: 3px 0;
+}
+.title-profile table{
+    width: 93%;
+    text-align: left;
+    font-size: 20px;
+    color: #2f3946;
+    border-bottom: 1px solid #d3d3d3;
+    margin: 0 40px 0 40px;
+}
+.profile p{
+    text-align: left;
+    margin: 0 40px 5px 40px;
+
+}
+.btn-add-profile{
+    float: right;
+    width: 100px;
+    height: 30px;
+    font-weight: bold;
+}
+.login-candidat .settings-prof{
+    text-align: left;
+    margin-left: 50px;
+
+}
+.login-candidat .settings-prof p{
+    font-size: 14px;
+    color: gray;
+
+}
+.register-tbl th{
+    padding: 0 10px 0 10px;
+
+}
+.register-tbl {
+    width: 65%;
+}
+/*------------------------Hover -Table------------------------------------*/
+table tr{
+    transition: 0.4s;
+}
+.shtbl table tr:hover{
+    /*background-color: rgba(163, 159, 167, 0.3);*/
+    background-color: rgba(37, 95, 121, 0.3);
+    color: #c46b47;
+}
+.shtbl table th{
+    background-color: rgba(163, 159, 167, 0.3);
+}
+
+.tbl-list td{
+    border-width: 0;
+}
+
+
+/*-------------------Hide Forms profile candida----------------------*/
+#update_compte_employer,#settings_employer,#add_offer,#addcv,
+#resume2, #experience2, #education2,#update_offer,#cv_candidat,
+#competence2, #language2, #hobbies2, #settings-candida,#offer_postulate,#letterForm,
+#detail_offer{
+    display: none;
+}
+.FormCandidats table{
+    display: inline;
+}
+
+
+/*-------------------------Employer Space--------------------------*/
+.image-employer{
+    width: 200px;
+    height: 150px;
+    box-shadow: 0 8px 10px 0 rgba(17, 8, 6, 0.5);
+    background-size:  cover;
+
+}
+/*-------------------------Admin Space--------------------------*/
+.image-admin{
+    width: 200px;
+    height: 150px;
+    box-shadow: 0 8px 10px 0 rgba(17, 8, 6, 0.5);
+    background: url("/YourJob/public/img/admin-ph.jpg"), no-repeat;
+    background-size:  cover;
+
+}
+/*---------------All--offers---------------*/
+.all-offers table{
+    width: 95%;
+    border-collapse: collapse;
+
+}
+.all-offers th {
+    border-bottom: 1px solid #3d3d3d;
+    padding: 5px 3px;
+    font-size: 14px;
+    color: #276e8f;
+}
+.all-offers td {
+    border-bottom: 1px solid #b9b9b9;
+    padding: 5px 0 5px 15px;
+    font-size: 13px;
+}
+
+/*-----------------Alert--------------------*/
+.alertSucces{
+    background-color: rgba(58, 163, 52, 0.2);
+    box-shadow: 0 2px 8px 2px rgba(36, 36, 36, 0.2);
+    color: #2ba235;
+    border-radius: 1px;
+    border: 1px solid #81bc84;
+    width: 800px;
+    height: 50px;
+    margin: auto;
+}
+.alertFaild{
+    background-color: rgba(255, 39, 42, 0.2);
+    box-shadow: 0 2px 8px 2px rgba(36, 36, 36, 0.2);
+    color: #d85850;
+    border-radius: 1px;
+    border: 1px solid #ffa78b;
+    width: 800px;
+    height: 50px;
+    margin: auto;
+}
+.alertW{
+    background-color: rgba(255, 197, 67, 0.2);
+    box-shadow: 0 2px 8px 2px rgba(36, 36, 36, 0.2);
+    color: #d89926;
+    border-radius: 1px;
+    border: 1px solid #ffc26a;
+    width: 800px;
+    height: 50px;
+    margin: auto;
+}
+
+/*-------------------------Footer--------------------------*/
+.footer{
+
+    background-image: url("/projet_recrute/public/img/b8.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 400px;
+    position: relative;
+    margin-bottom: 0;
+}
+
+.f-logo a{
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    margin: 0;
+    text-decoration: none;
+    text-shadow:0 0 5px rgba(255, 255, 255, 0.4);
+
+}
+.f-logo a span{
+    color: #db6a56;
+    font-weight: bolder;
+    font-size: 60px;
+
+}
+
+.footer-column {
+    float: left;
+    width: 22.33%;
+    margin: 0 50px 0 50px;
+
+}
+
+.bullet-list li {
+    text-decoration: none;
+    display: block;
+}
+
+.bullet-list li a{
+    margin-left: 0;
+    padding-left: 0;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.5s;
+}
+.bullet-list li a:hover{
+    color: #ff7761;
+    padding-left: 10px;
+}
+.f-handle{
+    font-size: 20px;
+    color: #ff7761;
+    margin: 20px 0 0 20px;
+}
+/*----------------------------------------------*/
+
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+
+/*-----------------------End Footer---------------------*/
+
+@media only screen and (max-width:800px) {
+    /* For tablets: */
+    .mlmlain {
+        width: 80%;
+        padding: 0;
+    }
+    .rkllight {
+        width: 100%;
+    }
+}
+@media only screen and (max-width:600px) {
+    /* For mobile phones: */
+    .meklkklnu, .makllin, .rigklkht {
+        width: 100%;
+    }
+    #btn_fg_ggl tr th{
+        width: 100%;
+        border : none!important;
+        margin: auto!important;
+        padding:0 30px 0 30px!important;
+
+    }
+    #login_forms{
+        margin: auto!important;
+    }
+    #box_ce{
+        margin: auto!important;
+    }
+    .form-log table{
+        margin: auto!important;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .nav{
+        float: none;
+        width: 100%;
+        height: auto;
+        z-index: 1;
+        position: relative;
+        margin-top: -150px!important;
+    }
+    .nav ul li a{
+        float: none;
+        display: table;
+        width: 100%;
+        padding: 0;
+        margin: -10px 0 -10px -20px;
+        text-align: center;
+
+    }
+    .nav ul li {
+        width: 100%;
+    }
+
+    .acc-panel{
+
+        display: none;
+        /*  width: auto;
+          position: center;
+          margin-right: 50px;
+          top: -300px;*/
+    }
+    .login-candidat,.bd-article, .register-candidat{
+
+        width:100%!important;
+        margin: 0!important;
+
+    }
+    .login-candidat p{
+        padding: 0 40px 40px 40px!important;
+    }
+    .footer{
+        height: auto;
+    }
+}
