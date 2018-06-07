@@ -1726,7 +1726,8 @@
                             console.log('data :', response.data);
                             if(response.data.etat=true){
                                 self.updateSettc={
-                                    user_id:window.Laravel.user_id,
+                                    user_id:wind
+                                    ow.Laravel.user_id,
                                     first_name:'',
                                     last_name:'',
                                     email:'',
