@@ -263,6 +263,7 @@ h1{
 
 .input-jb{
     border: 1px solid #62b2ff;
+    border-radius: 3px;
     height: 30px;
     width: 260px;
     padding-left: 5px;
@@ -285,18 +286,21 @@ h1{
 
 
 .link-btn{
+    border-radius: 3px;
     text-decoration: none!important;
     font-size: 15px;
     padding: 1px 5px;
     font-weight: lighter;
 }
 .btn-sml{
+        border-radius: 3px;
     width: 10px;
     height: 10px;
     font-size: 10px;
     margin-right: 0 ;
 }
 .btn-jb{
+        border-radius: 3px;
     border: 1px solid #418c43;
     margin-top: 10px;
     color: #fffffffa;
@@ -330,6 +334,7 @@ h1{
     text-shadow:0 0 5px rgba(255, 255, 255, 0.6);
 }
 .btn-blue-jb-rev{
+        border-radius: 3px;
     border: 1px solid #09468c;
     color: white;
     text-shadow:0 0 5px rgba(255, 255, 255, 0.6);
@@ -350,6 +355,7 @@ h1{
     box-shadow: 0 2px 20px 2px rgba(13, 151, 255, 0.4);
 }
 .btn-red-jb-rev{
+        border-radius: 3px;
     border: 1px solid #b6563f;
     margin-top: 10px;
     width: 160px;
@@ -365,7 +371,9 @@ h1{
     color: #d76349;
     background-color: transparent;
     box-shadow: 0 2px 20px 2px rgba(215, 99, 73, 0.5);
-}.btn-red-jb{
+}
+.btn-red-jb{
+        border-radius: 3px;
      border: 1px solid #d76349;
      margin-top: 10px;
      color: white;

@@ -145,7 +145,7 @@
                         <tr>
                             <th>Mon résumé</th>
                             <th><a style="font-size: 13px;width: 80px;height: 20px;" href="#prof" id="btn-add-resume" class="btn-jb btn-add-profile"
-                                   uk-tooltip="Modifier votre résumé">Modifier</a></th>
+                                  @click="editResume(resume)" uk-tooltip="Modifier votre résumé">Modifier</a></th>
                         </tr>
                     </table>
                 </div>
@@ -154,19 +154,19 @@
 
                 <p style="margin: 0">Imaginez que vous avez 2 minutes pour vous vendre à un recruteur. Utilisez cet espace pour les convaincre.</p>
 
-                <p  style="margin: 0"><?=48484;?></p>
+                <p  style="margin: 0">@{{resume.summary}}</p>
 
 
-                <form action="<?='index.php?p=yourjobs.candidat&s=cand&etat=smr';?>#prof" method="post">
-                    <table id="resume2">
-                        <tr><th><label class="label-jb" for="summary_description">Description :</label></th></tr>
-                        <tr><th><textarea class="input-jb" id="summary_description" name="summary_description"
-                                          style="height: 100px;width: 700px ; font-size: 16px;" cols="30" rows="40" required></textarea></th></tr>
+                <form action="#prof" method="post" id="resume2">
+                    <table>
+                        <tr><th><label class="label-jb" for="summary">Description :</label></th></tr>
+                        <tr><th><textarea class="input-jb" id="summary" name="summary"
+                                       v-model="updateResume.summary"   style="height: 100px;width: 700px ; font-size: 16px;" cols="30" rows="40" ></textarea></th></tr>
                         <tr>
                             <th style="float: right;">
                                 <input style="font-size: 15px;width: 80px;height: 24px;" id="btn-hide-formres" class="btn-red-jb"  type="button" value="Annuler">
-                                <button id="btn_sv_smr" class="btn-jb" type="submit">Enregistrer</button>
-                                <input type="hidden" id="validc" name="validc" value="smr">
+                                <button @click="UpdateResume()" id="btn_sv_smr" class="btn-jb" type="button">Enregistrer</button>
+
 
                             </th>
                         </tr>
@@ -176,7 +176,7 @@
 
             <!----------------Experience candidats------------------------->
             <!----------------Experience candidats------------------------->
-            <div id="ex">
+            <div id="ex" >
                 <hr>
                 <div class="title-profile experience">
                     <table style="font-size: 15px">
@@ -185,8 +185,10 @@
                             <th></th>
                         </tr>
                         <tr><td>Assurez-vous de mettre en avant vos qualités pour le poste</td>
-                            <td><a style="font-size: 13px;width: 80px;height: 20px;" href="#ex" id="btn-add-exper" class="btn-jb btn-add-profile"
-                                   uk-tooltip="Ajouter une expérience" >Ajouter</a></td>
+                            <td>
+                                <a style="font-size: 13px;width: 80px;height: 20px;" href="#ex" id="btn-add-exper" class="btn-jb btn-add-profile"
+                                   @click="addexper" uk-tooltip="Ajouter une expérience" >Ajouter</a>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -203,83 +205,59 @@
                             <th>Action</th>
                         </tr>
 
-                        <tr>
+                        <tr v-for="exper in experience">
                             <td>
-                                Date début :<?=484 ;?><br>
-                                Date Fin :<?=484 ;?><br>
+                                Date début : @{{ exper.exper_start_date }}<br>
+                                Date Fin :  @{{ exper.exper_end_date }}<br>
                             </td>
-                            <td><?=484 ;?></td>
-                            <td><?=484 ;?></td>
+                            <td> @{{ exper.exper_title }}</td>
+                            <td> @{{ exper.exper_description }}</td>
                             <td>
-                                <a uk-tooltip="Modifier" href="<?='index.php?p=yourjobs.candidat&s=cand&etat=updexp&idexp=&tle=&srtd=&endd=&dese=';?>#ex">
-                                    <img src="/projet_recrute/public/img/modifier-icon.png" alt="">
-                                </a>
-                                <a uk-tooltip="Supprimer" href="<?='index.php?p=yourjobs.candidat&s=cand&etat=dltexp&idexp=' ;?>#ex"><img src="/projet_recrute/public/img/dustbin.png" alt=""></a>
+                                <a  @click="editExper(exper)" :uk-icon="'file-edit'"  uk-tooltip="Modifier" href="#ex"></a>
+                                <a @click="deleteExper(exper)" :uk-icon="'trash'"  uk-tooltip="Supprimer" href="#ex"></a>
                             </td>
                         </tr>
 
                     </table>
                 </div>
-
                 <div id="experience2" class="FormCandidats">
-                    <form action="<?='index.php?p=yourjobs.candidat&s=cand&etat=addexp'; ?>#ex" method="post">
-                        <table>
-                            <tr><th><label class="label-jb" for="title_experience">Titre de l'experience :</label></th></tr>
-                            <tr><th><input type="text" class="input-jb" name="title_experience" id="title_experience" required></th></tr>
+                    <form action="#ex" method="post"  >
 
-                            <tr><th><label class="label-jb" for="description_exp">Description :</label></th></tr>
-                            <tr>
-                                <th><textarea class="input-jb" id="description_exp" name="description_exp"
-                                              style="height: 100px;" cols="30" rows="40" required></textarea></th>
-                            </tr>
+                                    <table>
+                                        <tr><th><label class="label-jb" for="title_experience">Titre de l'experience :</label></th></tr>
+                                        <tr><th><input v-model="updateExper.exper_title" type="text" class="input-jb" name="exper_title" id="title_experience" required></th></tr>
 
-                        </table>
-                        <table>
-                            <tr><th><label class="label-jb" for="start_date_exp">Date de début :</label></th></tr>
-                            <tr><th><input type="date" class="input-jb" name="start_date_exp" id="start_date_exp" required></th></tr>
-                            <tr><th><label class="label-jb" for="end_date_exp">Date de fin :</label></th></tr>
-                            <tr><th><input type="date" class="input-jb" name="end_date_exp" id="end_date_exp" required></th></tr>
-                            <tr>
-                                <th style="float: right;">
-                                    <a href="#ex" id="btn-hide-exper" class="btn-red-jb" type="button" >Annuler</a>
-                                    <button  id="btn_sv_exp" class="btn-jb" type="submit">Enregistrer</button>
-                                    <input type="hidden" id="validexp" name="validexp" value="exp">
-                                </th>
-                            </tr>
-                        </table>
+                                        <tr><th><label class="label-jb" for="description_exp">Description :</label></th></tr>
+                                        <tr>
+                                            <th><textarea class="input-jb" id="description_exp" name="exper_description"
+                                                       v-model="updateExper.exper_description"   style="height: 100px;" cols="30" rows="40" required></textarea></th>
+                                        </tr>
+                                        <tr>
+                                            <th></th>
+                                        </tr>
+
+                                    </table>
+
+                                    <table>
+                                        <tr><th><label class="label-jb" for="start_date_exp">Date de début :</label></th></tr>
+                                        <tr><th><input  v-model="updateExper.exper_start_date" type="date" class="input-jb" name="exper_start_date" id="start_date_exp" required></th></tr>
+                                        <tr><th><label class="label-jb" for="end_date_exp">Date de fin :</label></th></tr>
+                                        <tr><th><input  v-model="updateExper.exper_end_date" type="date" class="input-jb" name="exper_end_date" id="end_date_exp" required></th></tr>
+                                        <tr>
+                                            <th style="float: right;">
+                                                <a href="#ex" id="btn-hide-exper" class="btn-red-jb" type="button" >Annuler</a>
+                                                <button @click="UpdateExper(updateExper.id)"  id="btn_sv_exp" class="btn-jb" type="button">Enregistrer</button>
+                                                <button @click="saveExper()"  id="btn_ad_exp" class="btn-jb" type="button">Ajouter</button>
+                                                <input type="hidden" id="validexp" name="validexp" value="exp">
+                                            </th>
+                                        </tr>
+                                    </table>
+
                     </form>
 
                 </div>
 
-                <div id="experienceUpd" class="FormCandidats">
-                    <form action="<?='index.php?p=yourjobs.candidat&s=cand&etat=updexp&idexp='; ?>#ex" method="post">
-                        <table>
-                            <tr><th><label class="label-jb" for="title_experienceu">Titre de l'experience :</label></th></tr>
-                            <tr><th><input type="text" class="input-jb" name="title_experience" id="title_experienceu"  required></th></tr>
 
-                            <tr><th><label class="label-jb" for="description_expu">Description :</label></th></tr>
-                            <tr>
-                                <th><textarea class="input-jb" id="description_expu" name="description_exp"
-                                              style="height: 100px;" cols="30" rows="40" required><?=4545 ;?></textarea></th>
-                            </tr>
-
-                        </table>
-                        <table>
-                            <tr><th><label class="label-jb" for="start_date_expu">Date de début :</label></th></tr>
-                            <tr><th><input type="date" class="input-jb" name="start_date_exp" id="start_date_expu"  required></th></tr>
-                            <tr><th><label class="label-jb" for="end_date_expu">Date de fin :</label></th></tr>
-                            <tr><th><input type="date" class="input-jb" name="end_date_exp" id="end_date_expu"  required></th></tr>
-                            <tr>
-                                <th style="float: right;">
-                                    <a style="font-size: 15px;width: 80px;height: 24px;" href="#ex" id="btn_hide_upd_exp" class="btn-red-jb"  type="button" >Annuler</a>
-                                    <button id="btn_upd_exp" class="btn-jb" type="submit">Enregistrer la modification</button>
-                                    <input type="hidden" id="udp_exp" name="udp_exp" value="udpexp">
-                                </th>
-                            </tr>
-                        </table>
-                    </form>
-
-                </div>
 
             </div>
 
@@ -297,7 +275,7 @@
                         <tr>
                             <td>Indiquez-nous quelques mots sur votre parcours académique </td>
                             <td><a style="font-size: 13px;width: 80px;height: 20px;" href="#ed" id="btn-add-educa"  class="btn-jb btn-add-profile" type="button"
-                                   uk-tooltip="Ajouter une formation">Ajouter</a></td>
+                                 @click="added"  uk-tooltip="Ajouter une formation">Ajouter</a></td>
                         </tr>
 
                     </table>
@@ -311,16 +289,16 @@
                             <th>Action</th>
                         </tr>
 
-                        <tr>
+                        <tr v-for="educ in education">
                             <td>
-                                Date début :<?=455 ;?><br>
-                                Date Fin :<?=455 ;?><br>
+                                Date début : @{{ educ.educ_start_date }}<br>
+                                Date Fin : @{{ educ.educ_end_date }}<br>
                             </td>
-                            <td><?=455 ;?></td>
-                            <td><?=455 ;?></td>
+                            <td>@{{ educ.educ_title }}</td>
+                            <td>@{{ educ.educ_description }}</td>
                             <td>
-                                <a uk-tooltip="Modifier" href="<?='index.php?p=yourjobs.candidat&s=cand&etat=upded&ided=&dplm=&disc=&srtd=&endd=' ;?>#ed" ><img src="/projet_recrute/public/img/modifier-icon.png" alt=""></a>
-                                <a uk-tooltip="Supprimer" href="<?='index.php?p=yourjobs.candidat&s=cand&etat=dlted&ided=' ;?>#ed" ><img src="/projet_recrute/public/img/dustbin.png" alt=""></a>
+                                <a  @click="editEduc(educ)" :uk-icon="'file-edit'"  uk-tooltip="Modifier" href="#ed"></a>
+                                <a @click="deleteEduc(educ)" :uk-icon="'trash'"  uk-tooltip="Supprimer" href="#ed"></a>
                             </td>
                         </tr>
 
@@ -328,60 +306,30 @@
                 </div>
 
                 <div id="education2" class="FormCandidats">
-                    <form action="<?='index.php?p=yourjobs.candidat&s=cand&etat=added'; ?>#ed" method="post">
+                    <form action="#ed" method="post">
                         <table>
                             <tr><th><label class="label-jb" for="diploma">Diplome & formation :</label></th></tr>
-                            <tr><th><input type="text" class="input-jb" name="diploma" id="diploma" required></th></tr>
+                            <tr><th><input v-model="updateEduc.educ_title" type="text" class="input-jb" name="educ_title" id="diploma" required></th></tr>
 
                             <tr><th><label class="label-jb" for="description_diploma">Description :</label></th></tr>
                             <tr>
-                                <th><textarea class="input-jb" id="description_diploma" name="description_diploma"
-                                              style="height: 100px;" cols="30" rows="40" required></textarea></th>
+                                <th><textarea class="input-jb" id="description_diploma" name="educ_description"
+                                              v-model="updateEduc.educ_description"  style="height: 100px;" cols="30" rows="40" required></textarea></th>
                             </tr>
 
                         </table>
                         <table>
                             <tr><th><label class="label-jb" for="start_date_diploma">Date de début :</label></th></tr>
-                            <tr><th><input type="date" class="input-jb" name="start_date_diploma" id="start_date_diploma" required></th></tr>
+                            <tr><th><input v-model="updateEduc.educ_start_date" type="date" class="input-jb" name="educ_start_date" id="start_date_diploma" required></th></tr>
                             <tr><th><label class="label-jb" for="end_date_diploma">Date de fin :</label></th></tr>
-                            <tr><th><input type="date" class="input-jb" name="end_date_diploma" id="end_date_diploma" required></th></tr>
+                            <tr><th><input v-model="updateEduc.educ_end_date" type="date" class="input-jb" name="educ_end_date" id="end_date_diploma" required></th></tr>
                             <tr>
                                 <th style="float: right;">
                                     <a style="font-size: 15px;width: 80px;height: 24px;" href="#ed" id="btn-hide-educa" class="btn-red-jb"  type="button">Annuler</a>
-                                    <button id="btn-add-ed"  class="btn-jb" type="submit">Enregistrer</button>
+                                    <button @click="UpdateEduc(updateEduc.id)" id="btn_sv_ed"  class="btn-jb" type="button">Enregistrer</button>
+                                    <button @click="saveEduc()" id="btn_ad_ed"  class="btn-jb" type="button">Ajouter</button>
                                     <input type="hidden" id="valideduc" name="valideduc" value="educ">
 
-                                </th>
-                            </tr>
-                        </table>
-                    </form>
-
-                </div>
-
-
-                <div id="educationUpd" class="FormCandidats">
-                    <form action="<?='index.php?p=yourjobs.candidat&s=cand&etat=upded&ided='; ?>#ed" method="post">
-                        <table>
-                            <tr><th><label class="label-jb" for="diploma_ed">Diplome & formation :</label></th></tr>
-                            <tr><th><input type="text" class="input-jb" name="diploma" id="diploma_ed"  required></th></tr>
-
-                            <tr><th><label class="label-jb" for="description_diploma_ed">Description :</label></th></tr>
-                            <tr>
-                                <th><textarea class="input-jb" id="description_diploma_ed" name="description_diploma"
-                                              style="height: 100px;" cols="30" rows="40" required></textarea></th>
-                            </tr>
-
-                        </table>
-                        <table>
-                            <tr><th><label class="label-jb" for="start_date_diploma_ed">Date de début :</label></th></tr>
-                            <tr><th><input  type="date" class="input-jb" name="start_date_diploma" id="start_date_diploma_ed" required></th></tr>
-                            <tr><th><label class="label-jb" for="end_date_diploma_ed">Date de fin :</label></th></tr>
-                            <tr><th><input  type="date" class="input-jb" name="end_date_diploma" id="end_date_diploma_ed" required></th></tr>
-                            <tr>
-                                <th style="float: right;">
-                                    <a style="font-size: 15px;width: 80px;height: 24px;" href="#ed" id="btn-hide-educa-upd" class="btn-red-jb"  type="button">Annuler</a>
-                                    <button id="btn_upd_ed"  class="btn-jb" type="submit">Enregistrer</button>
-                                    <!--input type="hidden" id="udp_ed" name="udp_ed" value="upded"-->
                                 </th>
                             </tr>
                         </table>
@@ -406,7 +354,7 @@
                         <tr>
                             <td>Quelles sont les compétences qui vous différencient ?</td>
                             <td><a style="font-size: 13px;width: 80px;height: 20px;" href="#cmp" id="btn-add-compet"  class="btn-jb btn-add-profile" type="button"
-                                   uk-tooltip="ajouter une compétence">Ajouter</a></td>
+                                  @click="addcmp" uk-tooltip="ajouter une compétence">Ajouter</a></td>
                         </tr>
                     </table>
                 </div>
@@ -417,24 +365,34 @@
                             <th>Description</th>
                             <th>Action</th>
                         </tr>
+                        <tr v-for="compet in competence">
+                            <td>@{{ compet.comp_title }}</td>
+                            <td>@{{ compet.comp_description }}</td>
+                            <td>
+                                <a  @click="editCompet(compet)" :uk-icon="'file-edit'"  uk-tooltip="Modifier" href="#cmp"></a>
+                                <a @click="deleteCompet(compet)" :uk-icon="'trash'"  uk-tooltip="Supprimer" href="#cmp"></a>
+                            </td>
+                        </tr>
 
 
                     </table>
                 </div>
 
                 <div id="competence2" class="FormCandidats">
-                    <form action="<?='index.php?p=yourjobs.candidat&s=cand&etat=addcomp'; ?>#cmp" method="post">
+                    <form action="#cmp" method="post">
                         <table>
                             <tr><th><label class="label-jb" for="title_competence">Competence :</label></th></tr>
-                            <tr><th><input type="text" class="input-jb" name="title_competence" id="title_competence" required></th></tr>
+                            <tr><th><input type="text" class="input-jb" name="comp_title" id="title_competence"
+                                       v-model="updateCompet.comp_title" required></th></tr>
                             <tr><th><label class="label-jb" for="description_competence">Description :</label></th></tr>
-                            <tr><th><textarea class="input-jb" id="description_competence" name="description_competence"
-                                              style="height: 100px;" cols="30" rows="40" required></textarea></th></tr>
+                            <tr><th><textarea class="input-jb" id="description_competence" name="comp_description"
+                                              v-model="updateCompet.comp_description"    style="height: 100px;" cols="30" rows="40" required></textarea></th></tr>
                             <tr>
                                 <th style="float: right;">
                                     <a href="#cmp" style="font-size: 15px;width: 80px;height: 24px;" id="btn-hide-compet"
                                        class="btn-red-jb"  type="button">Annuler</a>
-                                    <button class="btn-jb" type="submit">Enregistrer</button>
+                                    <button @click="UpdateCompet()" id="btn_sv_cmp" class="btn-jb" type="button">Enregistrer</button>
+                                    <button @click="saveCompet()" id="btn_ad_cmp" class="btn-jb" type="button">Ajouter</button>
                                     <input type="hidden" id="validcomp" name="validcomp" value="comp">
 
                                 </th>
@@ -444,31 +402,6 @@
                     </form>
                 </div>
                 <hr>
-
-
-                <div id="competenceUpd" class="FormCandidats">
-                    <form action="<?='index.php?p=yourjobs.candidat&s=cand&etat=updcomp&idcomp='; ?>#cmp" method="post">
-                        <table>
-                            <tr><th><label class="label-jb" for="title_competence_com">Competence :</label></th></tr>
-                            <tr><th><input  type="text" class="input-jb" name="title_competence" id="title_competence_com" required></th></tr>
-                            <tr><th><label class="label-jb" for="description_competence_com">Description :</label></th></tr>
-                            <tr><th><textarea class="input-jb" id="description_competence_com" name="description_competence"
-                                              style="height: 100px;" cols="30" rows="40" required></textarea></th></tr>
-                            <tr>
-                                <th style="float: right;">
-                                    <a href="#cmp" style="font-size: 15px;width: 80px;height: 24px;" id="btn-hide-updcomp"
-                                       class="btn-red-jb"  type="button" >Annuler</a>
-                                    <button class="btn-jb" type="submit">Enregistrer</button>
-                                    <!--input type="hidden" id="upd_comp" name="upd_comp" value="udpcomp"-->
-
-                                </th>
-                            </tr>
-
-                        </table>
-                    </form>
-                </div>
-
-
             </div>
 
             <!-----------------------------Langues candidats--------->
@@ -485,7 +418,7 @@
                         <tr>
                             <td>Quelles sont vous compétences linguistiques?</td>
                             <td><a style="font-size: 13px;width: 80px;height: 20px;" href="#lg" id="btn-add-lang"  class="btn-jb btn-add-profile" type="button"
-                                   uk-tooltip="Ajouter une langue">Ajouter</a></td>
+                                  @click="addlg" uk-tooltip="Ajouter une langue">Ajouter</a></td>
                         </tr>
                     </table>
                 </div>
@@ -497,12 +430,20 @@
                             <th>Niveau linguistique</th>
                             <th>Action</th>
                         </tr>
+                        <tr v-for="lang in languages">
+                            <td>@{{ lang.laguage }}</td>
+                            <td>@{{ lang.language_level }}</td>
+                            <td>
+                                <a  @click="editLang(lang)" :uk-icon="'file-edit'"  uk-tooltip="Modifier" href="#lg"></a>
+                                <a @click="deleteLang(lang)" :uk-icon="'trash'"  uk-tooltip="Supprimer" href="#lg"></a>
+                            </td>
+                        </tr>
 
                     </table>
                 </div>
 
                 <div id="language2">
-                    <form action="<?='index.php?p=yourjobs.candidat&s=cand&etat=addlang'; ?>#lg" method="post">
+                    <form action="#lg" method="post">
                         <table class="register-tbl">
                             <tr>
                                 <th><label class="label-jb" for="language">Langue parlé :</label></th>
@@ -511,7 +452,8 @@
 
                             <tr>
                                 <th>
-                                    <select class="input-jb" name="language" id="language" required>
+                                    <select class="input-jb" name="laguage" id="language"
+                                           v-model="updateLang.laguage" required>
                                         <option value="Arabe">Arabe</option>
                                         <option value="Français">Français</option>
                                         <option value="Englais">Englais</option>
@@ -521,7 +463,8 @@
                                     </select>
                                 </th>
                                 <th>
-                                    <select class="input-jb" name="level_language" id="level_language" required>
+                                    <select class="input-jb" name="language_level" id="level_language"
+                                           v-model="updateLang.language_level" required>
                                         <option value="Langue maternelle">Langue maternelle</option>
                                         <option value="Bon">Bon</option>
                                         <option value="Moyenne">Moyenne</option>
@@ -535,55 +478,9 @@
                                 <th style="float: right;">
                                     <a href="#lg" style="font-size: 15px;width: 80px;height: 24px;"
                                        id="btn-hide-lang" class="btn-red-jb"  type="button">Annuler</a>
-                                    <button class="btn-jb" type="submit">Enregistrer</button>
+                                    <button @click="UpdateLang" id="btn_sv_lg" class="btn-jb" type="button">Enregistrer</button>
+                                    <button @click="saveLang" id="btn_ad_lg" class="btn-jb" type="button">Ajouter</button>
                                     <input type="hidden" id="validlang" name="validlang" value="lang">
-                                </th>
-                            </tr>
-
-                        </table>
-
-                    </form>
-                </div>
-
-
-                <div id="languageUpd">
-                    <form action="<?='index.php?p=yourjobs.candidat&s=cand&etat=updlang&idlang='; ?>#lg" method="post">
-                        <table class="register-tbl">
-                            <tr>
-                                <th><label class="label-jb" for="language_lg">Langue parlé :</label></th>
-                                <th><label class="label-jb" for="level_language_lg">Votre niveau :</label></th>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    <select class="input-jb" name="language" id="language_lg" >
-                                        <option value=""><?=48 ;?></option>
-                                        <option value="Arabe">Arabe</option>
-                                        <option value="Français">Français</option>
-                                        <option value="Englais">Englais</option>
-                                        <option value="Espagnol">Espagnol</option>
-                                        <option value="Allmande">Allmande</option>
-                                        <option value="Italienne">Italienne</option>
-                                    </select>
-                                </th>
-                                <th>
-                                    <select class="input-jb" name="level_language" id="level_language_lg">
-                                        <option value=""><?=48 ;?></option>
-                                        <option value="Langue maternelle">Langue maternelle</option>
-                                        <option value="Bon">Bon</option>
-                                        <option value="Moyenne">Moyenne</option>
-                                        <option value="Notion de base">Notion de base</option>
-                                    </select>
-                                </th>
-                            </tr>
-
-                            <tr>
-                                <th></th>
-                                <th style="float: right;">
-                                    <a href="#lg" style="font-size: 15px;width: 80px;height: 24px;" id="btn-hide-updlang"
-                                       class="btn-red-jb"  type="button" >Annuler</a>
-                                    <button class="btn-jb" type="submit">Enregistrer</button>
-                                    <!--input type="hidden" id="updlang" name="updlang" value="updlang"-->
                                 </th>
                             </tr>
 
@@ -611,7 +508,7 @@
                             <td>Décrit vos loisirs et centres d'intérêt
                             <td><a style="font-size: 13px;width: 80px;height: 20px;" href="#hb"
                                    id="btn-add-hobbies"  class="btn-jb btn-add-profile" type="button"
-                                   uk-tooltip="Ajouter une loisir">Ajouter</a></td>
+                                  @click="addhb" uk-tooltip="Ajouter une loisir">Ajouter</a></td>
                         </tr>
                     </table>
                 </div>
@@ -623,35 +520,39 @@
                             <th>Action</th>
                         </tr>
 
-                        <tr>
-                            <td><?=455 ;?></td>
+                        <tr v-for="hobbie in hobbies">
+                            <td>@{{ hobbie.hobbie }}</td>
                             <td></td>
                             <td>
-                                <a uk-tooltip="Modifier"  href="<?='index.php?p=yourjobs.candidat&s=cand&etat=updhobb&idhobb=';?>#hb"><img src="/projet_recrute/public/img/modifier-icon.png" alt=""></a>
-                                <a uk-tooltip="Supprimer" href="<?='index.php?p=yourjobs.candidat&s=cand&etat=dlthobb&idhobb=';?>#hb"><img src="/projet_recrute/public/img/dustbin.png" alt=""></a>
+                                <a  @click="editHobbie(hobbie)" :uk-icon="'file-edit'"  uk-tooltip="Modifier" href="#hb"></a>
+                                <a @click="deleteHobbie(hobbie)" :uk-icon="'trash'"  uk-tooltip="Supprimer" href="#hb"></a>
                             </td>
                         </tr>
                     </table>
                 </div>
+                <div id="hobbies2">
+                    <form action="#hb" method="post">
+                        <table >
+                            <tr>
+                                <th><label class="label-jb" for="hobbie">Vos loisirs :</label></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th><input  type="text" class="input-jb" name="hobbie" id="hobbie"
+                                            v-model="updateHobbie.hobbie" required></th>
+                                <th style="float: right;padding-left: 30px">
+                                    <a href="#hb" style="font-size: 15px;width: 80px;height: 24px;"
+                                       id="btn-hide-hobbies" class="btn-red-jb"  type="button" >Annuler</a>
+                                    <button @click="UpdateHobbie" id="btn_sv_hb" class="btn-jb" type="button">Enregistrer</button>
+                                    <button @click="saveHobbie" id="btn_ad_hb" class="btn-jb" type="button">Ajouter</button>
+                                    <input type="hidden" id="validhobb" name="validhobb" value="hobb">
 
-                <form action="<?='index.php?p=yourjobs.candidat&s=cand&etat=addhobb'; ?>#hb" method="post">
-                    <table id="hobbies2">
-                        <tr>
-                            <th><label class="label-jb" for="hobbie">Vos loisirs :</label></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <th><input  type="text" class="input-jb" name="hobbie" id="hobbie" required></th>
-                            <th style="float: right;padding-left: 30px">
-                                <a href="#hb" style="font-size: 15px;width: 80px;height: 24px;"
-                                   id="btn-hide-hobbies" class="btn-red-jb"  type="button" >Annuler</a>
-                                <button  class="btn-jb" type="submit">Enregistrer</button>
-                                <input type="hidden" id="validhobb" name="validhobb" value="hobb">
+                                </th>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
 
-                            </th>
-                        </tr>
-                    </table>
-                </form>
 
 
 
@@ -1192,8 +1093,7 @@
     <!--------------aside-------------------->
     <aside class="login-candidat side">
         <header>
-            <h3 style="    background-color: rgba(19, 42, 62, 0.8);
-;color: white;width: 100%;font-size: 24px;text-align: center;padding: 15px 10px;margin-left: -10px">Votre Espace Candidat</h3>
+            <h3 style="background-color: rgba(19, 42, 62, 0.8);color: white;width: 100%;font-size: 24px;text-align: center;padding: 15px 10px;margin-left: -10px">Votre Espace Candidat</h3>
 
             <div class="">Ce que vous devez savoir</div>
             <hr>
@@ -1310,10 +1210,6 @@
     //---------------Profile----------------------
     $(document).ready(function(){
 
-        <?php if (isset($_GET['msgc'])&&$_GET['msgc']==='failed'):?>
-        $("#btn-auto").click();
-        history.pushState({ path: this.path }, '', "<?='index.php?p=yourjobs.candidat&s=cand';?>#he");//change url without refresh
-        <?php endif;?>
 
      //-----------------------------------------
 
@@ -1325,22 +1221,6 @@
         $("#contact").removeClass("nav-active");
         $("#allof").removeClass("nav-active");
         $("#home").removeClass("nav-active");
-
-//----------------Add-sammury-----------------------------
-            $("#btn_sv_smr").click(function(){
-                var   validc=$("#validc").val();
-                var   desc=$("#summary_description").val();
-
-                $.post("<?='index.php?p=yourjobs.candidat&s=cand&etat=smr'; ?>",
-                    {
-                        validc:validc,
-                        summary_description:desc
-                    },
-                    function(data){
-                        console.log(data);
-                        console.log("hello");
-                    });
-            });
 
 
             //-------------------------------------------------------
@@ -1531,22 +1411,7 @@
             history.pushState({ path: this.path }, '', "<?='index.php?p=yourjobs.candidat&s=cand';?>#he");//change url without refresh
         });
 
-        <?php if ((isset($_GET['dlt-msg'])&&$_GET['dlt-msg']==='tr')||(isset($_GET['etat'])&&$_GET['etat']==='send-msg')||(isset($_GET['msgc'])&&$_GET['msgc']==='tr')||(isset($_GET['msge'])&&$_GET['msge']==='tr')) :?>
-        $("#msgCandidat").addClass("activate");
-        $("#profile").removeClass("activate");
-        $("#cvProfile").removeClass("activate");
-        $("#postulated").removeClass("activate");
-        $("#settingsCand").removeClass("activate");
-        $('html,body').animate({scrollTop: $("#he").offset().top}, 'slow' );
-        //-------------tables----------
-        $("#msgC-tbl").fadeIn("slow");
-        $("#prof").hide();
-        $("#offer_postulate").hide();
-        $("#pr_cand").hide();  //hide settings
-        $("#cv_candidat").hide();
-        //window.location="";
-        history.pushState({ path: this.path }, '', "<?='index.php?p=yourjobs.candidat&s=cand';?>#he");//change url without refresh
-        <?php endif;?>
+
 
         $("#cvProfile,#add-cv-s,#add-letter-s").click(function(){
             $("#cvProfile").addClass("activate");
@@ -1562,21 +1427,6 @@
             $("#cv_candidat").fadeIn("slow");
             history.pushState({ path: this.path }, '', "<?='index.php?p=yourjobs.candidat&s=cand';?>#he");//change url without refresh
         });
-        <?php if ((isset($_GET['lt'])&&($_GET['lt']==='deleted'||$_GET['lt']==='add'||$_GET['lt']==='upd'))||(isset($_GET['cv'])&&($_GET['cv']==='deleted'||$_GET['cv']==='add'||$_GET['cv']==='upd'))) :?>
-            $("#cvProfile").addClass("activate");
-            $("#profile").removeClass("activate");
-            $("#msgCandidat").removeClass("activate");
-            $("#postulated").removeClass("activate");
-            $("#settingsCand").removeClass("activate");
-            $('html,body').animate({scrollTop: $("#he").offset().top}, 'slow' );
-            $("#msgC-tbl").hide();
-            $("#prof").hide();
-            $("#offer_postulate").hide();
-            $("#pr_cand").hide();  //hide settings
-            $("#cv_candidat").fadeIn("slow");
-            history.pushState({ path: this.path }, '', "<?='index.php?p=yourjobs.candidat&s=cand';?>#he");
-        <?php endif;?>
-
 
         $("#postulated").click(function(){
             $(this).addClass("activate");
@@ -1681,6 +1531,12 @@
             data: {
                 userc: [],
                 cand: [],
+                resume: [],
+                experience: [],
+                education: [],
+                competence: [],
+                languages: [],
+                hobbies: [],
                 updateSettc:{
                     user_id:window.Laravel.user_id,
                     first_name:'',
@@ -1693,12 +1549,544 @@
                     city:'',
                     birthday:'',
                 },
+                updateResume:{
+                    user_id:window.Laravel.user_id,
+                    summary:'Non spécifié',
+                },
+                updateExper:{
+                    id:0,
+                    user_id:window.Laravel.user_id,
+                    exper_title:'',
+                    exper_description:'',
+                    exper_start_date:'',
+                    exper_end_date:'',
+                },
+                updateEduc:{
+                    id:0,
+                    user_id:window.Laravel.user_id,
+                    educ_title:'',
+                    educ_description:'',
+                    educ_start_date:'',
+                    educ_end_date:'',
+                },
+                updateCompet:{
+                    id:0,
+                    user_id:window.Laravel.user_id,
+                    comp_title:'',
+                    comp_description:'',
+                },
+                updateLang:{
+                    id:0,
+                    user_id:window.Laravel.user_id,
+                    laguage:'',
+                    language_level:'',
+                },
+                updateHobbie:{
+                    id:0,
+                    user_id:window.Laravel.user_id,
+                    hobbie:'',
+                },
                 updtsettc: false,
                 updtsettc2: true,
 
             },
             methods: {
-                //-------Settings Candidate------
+      //-------Resume------
+                getResume: function () {
+                    $("#educationUpd").hide();
+                    let self = this; // pour que les data enregistrer sur experiences [] au dessus
+                    axios.get(window.Laravel.url +'/getResume/'+window.Laravel.user_id) //recuperer url
+                        .then(function (response) {
+                            self.resume = response.data;
+                            console.log('resume :', response.data);
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+                editResume :function (resume) {
+                    let self = this;
+                    self.updateResume = resume;  //combine btw two object
+                    self.getResume();
+                },
+                UpdateResume:function () {
+                    let self = this;
+                    axios.put(window.Laravel.url+'/updateResume',self.updateResume)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                self.updateResume={
+                                    user_id:window.Laravel.user_id,
+                                    summary:'Non spécifié',
+                                };
+                                self.getResume();
+                                $('#resume2').hide();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                } ,
+
+      //-------Experience------
+                btn:function () {
+                    $('#btn_ad_exp').show();
+                    $('#btn_ad_ed').show();
+                    $('#btn_ad_cmp').show();
+                    $('#btn_ad_lg').show();
+                    $('#btn_ad_hb').show();
+                    $('#btn_sv_ed').hide();
+                    $('#btn_sv_cmp').hide();
+                    $('#btn_sv_lg').hide();
+                    $('#btn_sv_hb').hide();
+                },
+                addexper:function () {
+                    $('#btn_ad_exp').show();
+                    $('#btn_sv_exp').hide();
+                this.updateExper={
+                        id:0,
+                        user_id:window.Laravel.user_id,
+                        exper_title:'',
+                        exper_description:'',
+                        exper_start_date:'',
+                        exper_end_date:'',
+                    };
+                },
+                added:function () {
+                    $('#btn_ad_ed').show();
+                    $('#btn_sv_ed').hide();
+                this.updateEduc={
+                        id:0,
+                        user_id:window.Laravel.user_id,
+                        educ_title:'',
+                        educ_description:'',
+                        educ_start_date:'',
+                        educ_end_date:'',
+                    };
+                },
+                addcmp:function () {
+                    $('#btn_ad_cmp').show();
+                    $('#btn_sv_cmp').hide();
+                this.updateCompet={
+                        id:0,
+                        user_id:window.Laravel.user_id,
+                        comp_title:'',
+                        comp_description:'',
+
+                        };
+                },
+                addlg:function () {
+                    $('#btn_ad_lg').show();
+                    $('#btn_sv_lg').hide();
+                this.updateLang={
+                        id:0,
+                        user_id:window.Laravel.user_id,
+                        laguage:'',
+                        language_level:'',
+
+                        };
+                },
+                addhb:function () {
+                    $('#btn_ad_hb').show();
+                    $('#btn_sv_hb').hide();
+                this.updateHobbie={
+                        id:0,
+                        user_id:window.Laravel.user_id,
+                        hobbie:'',
+                };
+                },
+                getExper: function () {
+                    let self = this; // pour que les data enregistrer sur experiences [] au dessus
+                    axios.get(window.Laravel.url +'/getExper/'+window.Laravel.user_id) //recuperer url
+                        .then(function (response) {
+                            self.experience = response.data;
+                            console.log('experience :', response.data);
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+                saveExper: function () {
+                    let self = this;
+                    axios.post(window.Laravel.url+'/addExper',self.updateExper)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                self.experience.unshift(self.updateExper);
+                                self.updateExper={
+                                    id:0,
+                                    user_id:window.Laravel.user_id,
+                                    exper_title:'',
+                                    exper_description:'',
+                                    exper_start_date:'',
+                                    exper_end_date:'',
+                                };
+                                self.getExper();
+                                $('#experience2').hide();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('Error :', error);
+                        })
+                },
+                editExper :function (exper) {
+                    let self = this;
+                    self.updateExper = exper;  //combine btw two object
+                    self.getExper();
+                    $('#experience2').show();
+                    $('#btn_sv_exp').show();
+                    $('#btn_ad_exp').hide();
+                },
+                UpdateExper:function () {
+                    let self = this;
+                    axios.put(window.Laravel.url+'/updateExper',self.updateExper)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                self.updateExper={
+                                    id:0,
+                                    user_id:window.Laravel.user_id,
+                                    exper_title:'',
+                                    exper_description:'',
+                                    exper_start_date:'',
+                                    exper_end_date:'',
+                                };
+                                self.getExper();
+                                $('#experience2').hide();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                } ,
+                deleteExper:function (Exper) {
+                    let self = this;
+                    axios.delete(window.Laravel.url+'/deleteExper/'+Exper.id)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                let position= self.experience.indexOf(Exper); //positon of experience
+                                self.experience.splice(position,1);//delete position 1
+                                self.getExper();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+  //-------Education------
+                getEduc: function () {
+                    let self = this; // pour que les data enregistrer sur experiences [] au dessus
+                    axios.get(window.Laravel.url +'/getEduc/'+window.Laravel.user_id) //recuperer url
+                        .then(function (response) {
+                            self.education = response.data;
+                            console.log('education :', response.data);
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+                saveEduc: function () {
+                    let self = this;
+                    axios.post(window.Laravel.url+'/addEduc',self.updateEduc)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                self.education.unshift(self.updateEduc);
+                                self.updateEduc={
+                                    id:0,
+                                    user_id:window.Laravel.user_id,
+                                    educ_title:'',
+                                    educ_description:'',
+                                    educ_start_date:'',
+                                    educ_end_date:'',
+                                };
+                                self.getEduc();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('Error :', error);
+                        })
+                },
+                editEduc :function (Educ) {
+                    let self = this;
+                    self.updateEduc = Educ;  //combine btw two object
+                    self.getEduc();
+                    $('#education2').show();
+                    $('#btn_sv_ed').show();
+                    $('#btn_ad_ed').hide();
+                },
+                UpdateEduc:function () {
+                    let self = this;
+                    axios.put(window.Laravel.url+'/updateEduc',self.updateEduc)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                self.updateEduc={
+                                    id:0,
+                                    user_id:window.Laravel.user_id,
+                                    educ_title:'',
+                                    educ_description:'',
+                                    educ_start_date:'',
+                                    educ_end_date:'',
+                                };
+                                self.getEduc();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                } ,
+                deleteEduc:function (educ) {
+                    let self = this;
+                    axios.delete(window.Laravel.url+'/deleteEduc/'+educ.id)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                let position= self.education.indexOf(educ); //positon of experience
+                                self.education.splice(position,1);//delete position 1
+                                self.getEduc();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+  //-------Competence------
+                getCompet: function () {
+                    let self = this; // pour que les data enregistrer sur experiences [] au dessus
+                    axios.get(window.Laravel.url +'/getCompet/'+window.Laravel.user_id) //recuperer url
+                        .then(function (response) {
+                            self.competence = response.data;
+                            console.log('competence :', response.data);
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+                saveCompet: function () {
+                    let self = this;
+                    axios.post(window.Laravel.url+'/addCompet',self.updateCompet)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                self.competence.unshift(self.updateCompet);
+                                self.updateCompet={
+                                    id:0,
+                                    user_id:window.Laravel.user_id,
+                                    comp_title:'',
+                                    comp_description:'',
+                                };
+                                self.getCompet();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('Error :', error);
+                        })
+                },
+                editCompet :function (compet) {
+                    let self = this;
+                    self.updateCompet = compet;  //combine btw two object
+                    self.getCompet();
+                    $('#competence2').show();
+                    $('#btn_sv_cmp').show();
+                    $('#btn_ad_cmp').hide();
+                },
+                UpdateCompet:function () {
+                    let self = this;
+                    axios.put(window.Laravel.url+'/updateCompet',self.updateCompet)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                self.updateCompet={
+                                    user_id:window.Laravel.user_id,
+                                    comp_title:'',
+                                    comp_description:'',
+                                };
+                                self.getCompet();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                } ,
+                deleteCompet:function (Compet) {
+                    let self = this;
+                    axios.delete(window.Laravel.url+'/deleteCompet/'+Compet.id)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                let position= self.competence.indexOf(Compet); //positon of experience
+                                self.competence.splice(position,1);//delete position 1
+                                self.getCompet();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+  //-------languages------
+                getLang: function () {
+                    let self = this; // pour que les data enregistrer sur experiences [] au dessus
+                    axios.get(window.Laravel.url +'/getLang/'+window.Laravel.user_id) //recuperer url
+                        .then(function (response) {
+                            self.languages = response.data;
+                            console.log('languages :', response.data);
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+                saveLang: function () {
+                    let self = this;
+                    axios.post(window.Laravel.url+'/addLang',self.updateLang)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                self.languages.unshift(self.updateLang);
+                                self.updateLang={
+                                    user_id:window.Laravel.user_id,
+                                    laguage:'',
+                                    language_level:'',
+                                };
+                                self.gLang();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('Error :', error);
+                        })
+                },
+                editLang :function (Lang) {
+                    let self = this;
+                    self.updateLang = Lang;  //combine btw two object
+                    self.getLang();
+                    $('#language2').show();
+                    $('#btn_sv_lg').show();
+                    $('#btn_ad_lg').hide();
+                },
+                UpdateLang:function () {
+                    let self = this;
+                    axios.put(window.Laravel.url+'/updateLang',self.updateLang)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                self.updateLang={
+                                    user_id:window.Laravel.user_id,
+                                    laguage:'',
+                                    language_level:'',
+                                };
+                                self.getLang();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                } ,
+                deleteLang:function (lang) {
+                    let self = this;
+                    axios.delete(window.Laravel.url+'/deleteLang/'+lang.id)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                let position= self.languages.indexOf(lang); //positon of experience
+                                self.languages.splice(position,1);//delete position 1
+                                self.getLang();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+  //-------Hobbies------
+                getHobbie: function () {
+                    let self = this; // pour que les data enregistrer sur experiences [] au dessus
+                    axios.get(window.Laravel.url +'/getHobbie/'+window.Laravel.user_id) //recuperer url
+                        .then(function (response) {
+                            self.hobbies = response.data;
+                            console.log('hobbies :', response.data);
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+                saveHobbie: function () {
+                    let self = this;
+                    axios.post(window.Laravel.url+'/addHobbie',self.updateHobbie)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                self.hobbies.unshift(self.updateHobbie);
+                                self.updateHobbie={
+                                    user_id:window.Laravel.user_id,
+                                    hobbie:'',
+
+                                };
+                                self.getHobbie();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('Error :', error);
+                        })
+                },
+                editHobbie :function (hobbie) {
+                    let self = this;
+                    self.updateHobbie = hobbie;  //combine btw two object
+                    self.getHobbie();
+                    $("#hobbies2").show();
+                    $('#btn_sv_hb').show();
+                    $('#btn_ad_hb').hide();
+                },
+                UpdateHobbie:function () {
+                    let self = this;
+                    axios.put(window.Laravel.url+'/updateHobbie',self.updateHobbie)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                self.updateHobbie={
+                                    user_id:window.Laravel.user_id,
+                                    hobbie:'',
+                                };
+                                self.getHobbie();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+                deleteHobbie:function (hobbie) {
+                    let self = this;
+                    axios.delete(window.Laravel.url+'/deleteHobbie/'+hobbie.id)
+                        .then(function (response) {
+                            console.log('data :', response.data);
+                            if(response.data.etat=true){
+                                let position= self.hobbies.indexOf(hobbie); //positon of hobb
+                                self.hobbies.splice(position,1);//delete position 1
+                                self.getHobbie();
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.log('error :', error);
+                        })
+                },
+
+
+  //-------Settings Candidate------
                 getSettc: function () {
                     let self = this; // pour que les data enregistrer sur experiences [] au dessus
                     axios.get(window.Laravel.url +'/getSettc/'+window.Laravel.user_id) //recuperer url
@@ -1726,8 +2114,7 @@
                             console.log('data :', response.data);
                             if(response.data.etat=true){
                                 self.updateSettc={
-                                    user_id:wind
-                                    ow.Laravel.user_id,
+                                    user_id:window.Laravel.user_id,
                                     first_name:'',
                                     last_name:'',
                                     email:'',
@@ -1747,13 +2134,16 @@
                             console.log('error :', error);
                         })
                 } ,
-
-
-
             },
-
             created: function () {
-                this.getSettc();  // afficher data sur la console
+                this.getSettc();// afficher data sur la console
+                this.getResume();
+                this.getExper();
+                this.getEduc();
+                this.getCompet();
+                this.getLang();
+                this.getHobbie();
+                this.btn();
             }
         });
 

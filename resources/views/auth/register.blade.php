@@ -50,12 +50,12 @@
                         </th>
                     </tr>
                     <tr>
-                        <th></th>
+                        <th><label class="label-jb" for="permis">Permis :</label></th>
                         <th><label class="label-jb" for="user_type">Votre identification :</label></th>
                     </tr>
                     <tr>
                         <th>
-
+                            <input class="input-jb" id="permis" name="permis" type="text">
                         </th>
                         <th>
                             <select  class="input-jb input-select" name="user_type" id="user_type" required>

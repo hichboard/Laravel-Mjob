@@ -89,8 +89,14 @@
             </span>
             <span><table><tr><th><a href="{{url('/mjobs')}}"> {{ Auth::User()->first_name.'.'.Auth::User()->last_name }}</a></th></tr></table></span>
             <span><table ><tr ><th>Profile :</th><th class="img-profile">
-                            <img style="border-radius: 40px 40px;width: 23px;height: 23px!important;"
-                                 src=""  alt=""></th></tr></table></span>
+                            @if(Auth::User()->users_candidat)
+                            <img style="border-radius: 40px 40px;width: 35px;height: 25px!important;"
+                                 src="{{asset('/storage/'.Auth::User()->users_candidat->pic_profile)}}"  alt="">
+                            @elseif(Auth::User()->users_employer)
+                            <img style="border-radius: 40px 40px;width: 35px;height: 25px!important;"
+                                 src="{{asset('/storage/'.Auth::User()->users_employer->company_logo)}}"  alt="">
+                            @endif
+                        </th></tr></table></span>
 
         @endguest
 

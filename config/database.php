@@ -17,8 +17,8 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
-
+    'default' => env('DB_CONNECTION', 'mysql'),
+    
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -58,7 +58,7 @@ return [
             'engine' => null,
         ],
 
-       /*/ 'pgsql' => [
+        'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
@@ -69,7 +69,9 @@ return [
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'prefer',
-        ],/*/
+        ],
+        /*/
+            //-------------Heroku-----------
          'pgsql' => [
             'driver' => 'pgsql',
             'host' => $DATABASE_URL["host"],
@@ -81,7 +83,7 @@ return [
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'require',
-        ],
+        ],/*/
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',

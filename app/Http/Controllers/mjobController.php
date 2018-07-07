@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Competence;
+use App\Education;
+use App\Experience;
+use App\Hobbie;
 use App\Http\Requests\candidatRequest;
 use App\Http\Requests\employerRequest;
 use App\Http\Requests\Offeremployer;
+use App\Language;
 use App\Offers_employer;
+use App\Summary_candidat;
 use App\Users_candidat;
 use App\Users_employer;
 use Illuminate\Foundation\Http\FormRequest;
@@ -92,6 +98,7 @@ class mjobController extends Controller
 
     public function candRegister(candidatRequest $request){
         if (Auth::User()->user_type =='candidat'){
+            $resume= new Summary_candidat();
             $cand=new Users_candidat();
             $cand->user_id= Auth::id();
             $cand->birthday= $request->input('birthday');
@@ -99,7 +106,12 @@ class mjobController extends Controller
             if($request->hasFile('pic_profile')){
                 $cand->pic_profile=$request->file('pic_profile')->store('images');
             }
+
+            $resume->user_id=Auth::id();
+            $resume->save();
+
             $cand->save();
+
             session()->flash('success','Votre inscription a bien été enregistrée!');
             //}
             if ($cand->save()){
@@ -274,6 +286,199 @@ class mjobController extends Controller
         return Response()->json( ['etat'=>false ]) ;
     }
 
+
+    //-----------------------------------------update-summary---
+    public function getResume(){
+
+        return $resume = Auth::user()->summary_candidat;
+    }
+
+    public function updateResume(Request $request){
+        $resume= new Summary_candidat();
+        if ( (Summary_candidat::where('user_id',Auth::id())->count() > 0)
+            && $request->input('summary') !='' )
+        {
+            $resume->where('user_id',Auth::id())->update(['summary'=> $request->input('summary') ]);
+            return Response()->json( ['updtsmr'=>true ]) ;
+        }
+        return Response()->json( ['etat'=>false ]) ;
+    }
+
+    //-----------------------------------------Experience---
+    public function getExper(){
+
+        return  Auth::user()->experience;
+    }
+
+    public function addExper(Request $request){
+        $exper= new Experience();
+
+        $exper->user_id= Auth::id();
+        $exper->exper_title= $request->input('exper_title');
+        $exper->exper_description= $request->input('exper_description');
+        $exper->exper_start_date= $request->input('exper_start_date');
+        $exper->exper_end_date= $request->input('exper_end_date');
+        $exper->save();
+
+        return Response()->json( ['etat'=>true ]) ;
+    }
+
+    public function updateExper(Request $request){
+        $exper= new Experience();
+        if ( (Experience::where('user_id',Auth::id())->count() > 0)
+            && $request->input('exper_title') !='' )
+        {
+            $exper->where('id',$request->id)->update(['exper_title'=> $request->input('exper_title'),
+                'exper_description'=> $request->input('exper_description'),
+                'exper_start_date'=> $request->input('exper_start_date'),
+                'exper_end_date'=> $request->input('exper_end_date'), ]);
+            return Response()->json( ['etat'=>true ]) ;
+        }
+        return Response()->json( ['etat'=>false ]) ;
+    }
+    public function deleteExper($id){
+        $exper=Experience::find($id);
+        $exper->delete();
+        return Response()->json( ['etat'=>true ]) ;
+    }
+
+    //-----------------------------------------Education---
+    public function getEduc(){
+
+            return  Auth::user()->education;
+
+    }
+
+    public function addEduc(Request $request){
+        $educ= new Education();
+
+        $educ->user_id= Auth::id();
+        $educ->educ_title= $request->input('educ_title');
+        $educ->educ_description= $request->input('educ_description');
+        $educ->educ_start_date= $request->input('educ_start_date');
+        $educ->educ_end_date= $request->input('educ_end_date');
+        $educ->save();
+
+        return Response()->json( ['etat'=>true ]) ;
+    }
+
+    public function updateEduc(Request $request){
+        $educ= new Education();
+        if ( (Education::where('user_id',Auth::id())->count() > 0)
+            && $request->input('educ_title') !='' )
+        {
+            $educ->where('id',$request->id)->update(['educ_title'=> $request->input('educ_title'),
+                'educ_description'=> $request->input('educ_description'),
+                'educ_start_date'=> $request->input('educ_start_date'),
+                'educ_end_date'=> $request->input('educ_end_date'), ]);
+            return Response()->json( ['etat'=>true ]) ;
+        }
+        return Response()->json( ['etat'=>false ]) ;
+    }
+    public function deleteEduc($id){
+        $educ=Education::find($id);
+        $educ->delete();
+        return Response()->json( ['etat'=>true ]) ;
+    }
+
+    //-----------------------------------------Competence---
+    public function getCompet(){
+
+        return $comp = Auth::user()->competence;
+    }
+
+    public function addCompet(Request $request){
+        $comp= new Competence();
+
+        $comp->user_id= Auth::id();
+        $comp->comp_title= $request->input('comp_title');
+        $comp->comp_description= $request->input('comp_description');
+        $comp->save();
+
+        return Response()->json( ['etat'=>true ]) ;
+    }
+
+    public function updateCompet(Request $request){
+        $educ= new Competence();
+        if ( (Competence::where('user_id',Auth::id())->count() > 0)
+            && $request->input('comp_title') !='' )
+        {
+            $educ->where('id',$request->id)->update(['comp_title'=> $request->input('comp_title'),
+                'comp_description'=> $request->input('comp_description'), ]);
+            return Response()->json( ['etat'=>true ]) ;
+        }
+        return Response()->json( ['etat'=>false ]) ;
+    }
+    public function deleteCompet($id){
+        $Compet=Competence::find($id);
+        $Compet->delete();
+        return Response()->json( ['etat'=>true ]) ;
+    }
+    //-----------------------------------------Language---
+    public function getLang(){
+
+        return $lang = Auth::user()->language;
+    }
+
+    public function addLang(Request $request){
+        $lang= new Language();
+
+        $lang->user_id= Auth::id();
+        $lang->laguage= $request->input('laguage');
+        $lang->language_level= $request->input('language_level');
+        $lang->save();
+
+        return Response()->json( ['etat'=>true ]) ;
+    }
+
+    public function updateLang(Request $request){
+        $lang= new Language();
+        if ( (Language::where('user_id',Auth::id())->count() > 0)
+            && $request->input('laguage') !='' )
+        {
+            $lang->where('id',$request->id)->update(['laguage'=> $request->input('laguage'),
+                'language_level'=> $request->input('language_level'), ]);
+            return Response()->json( ['etat'=>true ]) ;
+        }
+        return Response()->json( ['etat'=>false ]) ;
+    }
+    public function deleteLang($id){
+        $Lang=Language::find($id);
+        $Lang->delete();
+        return Response()->json( ['etat'=>true ]) ;
+    }
+    //-----------------------------------------Hobbie---
+    public function getHobbie(){
+
+        return $Hobbie = Auth::user()->hobbie;
+    }
+
+    public function addHobbie(Request $request){
+        $Hobbie= new Hobbie();
+
+        $Hobbie->user_id= Auth::id();
+        $Hobbie->hobbie= $request->input('hobbie');
+        $Hobbie->save();
+
+        return Response()->json( ['etat'=>true ]) ;
+    }
+
+    public function updateHobbie(Request $request){
+        $Hobbie= new Hobbie();
+        if ( (Hobbie::where('user_id',Auth::id())->count() > 0)
+            && $request->input('hobbie') !='' )
+        {
+            $Hobbie->where('id',$request->id)->update(['hobbie'=> $request->input('hobbie') ]);
+            return Response()->json( ['etat'=>true ]) ;
+        }
+        return Response()->json( ['etat'=>false ]) ;
+    }
+    public function deleteHobbie($id){
+        $Hobbie=Hobbie::find($id);
+        $Hobbie->delete();
+        return Response()->json( ['etat'=>true ]) ;
+    }
+    //--------------------------------------------
 
 
     public function store(){
